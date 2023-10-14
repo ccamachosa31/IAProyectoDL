@@ -7,6 +7,14 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -38,14 +46,14 @@ andres.garcia13@usa.edu.co}
 \IEEEauthorblockN{4\textsuperscript{th} Mateo Rondon}
 \IEEEauthorblockA{\textit{dept. Ciencias de la Computación e IA} \\
 \textit{Universidad Sergio Arboleda}\\
-Bogita, Colombia\\
+Bogotá, Colombia\\
 mateo.rondon01@usa.edu.co}
 }
 
 \maketitle
 
 \begin{abstract}
-ndoor localization remains a formidable challenge in the absence of reliable GPS signals. This study tackles this issue by harnessing advanced Deep Learning techniques. We leverage the UJIIndoorLoc dataset to construct a WLAN fingerprint-based model, executed within a Python programming framework following the CRISP-DM methodology. Our findings underscore the pivotal role of deep learning in addressing the intricate challenges of indoor localization, offering promising solutions for real-world applications.
+Indoor localization remains a challenge in the absence of reliable GPS signals. This study addresses this issue using advanced Deep Learning techniques. We employ the UJIIndoorLoc dataset to construct a model based on WLAN fingerprinting, executed within a Python programming environment and following the CRISP-DM methodology. Our findings underscore the pivotal role of deep learning in addressing indoor localization challenges, offering promising solutions for real-world applications.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -56,18 +64,9 @@ Indoor localization, UJIIndoorLoc, Wireless fingerprinting, Data analysis.
 
 
 \section{Introduction}
-The relentless progress of technology continually shapes and redefines our interaction with the world around us. Amidst the spectrum of technological evolutions, the realm of localization, particularly indoor localization, has emerged as a pivotal aspect. Be it for assisting individuals in vast shopping malls, ensuring patient safety in sprawling hospitals, or aiding travelers in international airports, accurate indoor localization can revolutionize experiences in myriad ways.
+The relentless progress of technology continually shapes and redefines our interaction with the world around us. Among the many technological evolutions, indoor localization stands out as a game-changer, with the potential to aid individuals in vast shopping malls, ensure patient safety in hospitals, and assist travelers in international airports. Despite historical attempts using solutions ranging from infrared to ultrasonic sensors, achieving reliable indoor localization remains challenging. The limitations of the Global Positioning System (GPS) in indoor environments due to architectural barriers intensify this challenge. In this milieu, the rise of Deep Learning, with its ability to decipher patterns from extensive datasets, promises potential breakthroughs. Leveraging the rich data from the UJIIndoorLoc dataset and following the CRISP-DM methodology, this study explores the intricacies of indoor positioning, aiming to make a significant contribution in the domain of Deep Learning applications.
 
-Historically, the quest for impeccable indoor localization has seen a gamut of solutions, ranging from infrared to ultrasonic sensors. Yet, each came with its own set of limitations, often tethered by accuracy, infrastructure costs, or scalability. The ubiquity of Global Positioning System (GPS), while transformative for outdoor localization, falters within the confines of concrete walls and metal structures, rendering it inefficient for indoor scenarios\textcolor{blue}{\cite{zhang2013comprehensive}}.
-
-In this milieu, the rise of Deep Learning, with its adeptness at deciphering patterns from vast datasets, offers a glimmer of hope. Renowned for reshaping domains from natural language processing to computer vision, its application to indoor localization promises potential breakthroughs\textcolor{blue}{\cite{alsheikh2015deep}}. Motivated by this, our study embarks on an exploration of harnessing Deep Learning for indoor localization, leveraging the rich data from the UJIIndoorLoc dataset.
-
-The adoption of the Cross-Industry Standard Process for Data Mining (CRISP-DM) in our investigation underscores its significance in guiding data-driven endeavors. Recognized for its structured approach in the data mining process, CRISP-DM provides a comprehensive framework that ensures systematic exploration, analysis, and interpretation of datasets. By harnessing its methodologies, we aspire to navigate the intricacies of the UJIIndoorLoc dataset effectively, ensuring a rigorous and holistic understanding of indoor localization dynamics.
-
-With this endeavor, we aspire not merely to navigate the intricacies of indoor localization but also etch a significant mark in the evolving narrative of Deep Learning applications.
-
-In this study, we explore the application of advanced Deep Learning techniques to address the intricate challenges of indoor localization. Our specific objectives include:
-
+Our specific objectives include:
 \begin{enumerate}
 \item Constructing a WLAN fingerprint-based model using the UJIIndoorLoc dataset.
 \item Implementing the research within a Python programming framework.
@@ -78,17 +77,17 @@ In this study, we explore the application of advanced Deep Learning techniques t
 
 \section{Literature Review}
 
-In recent years, the field of indoor localization has gained significant attention, with several studies exploring various methodologies to optimize the accuracy and efficiency of indoor positioning systems. One notable contribution in this domain is the work by Terán and Ore (2019), who performed a benchmark analysis of different algorithms for determining user indoor positioning utilizing the UJIIndoorLoc dataset \textcolor{blue}{\cite{teran2019benchmark}}. Their comprehensive study provided insights into the strengths and limitations of various algorithms, setting a foundational understanding of the dataset's potential for indoor localization.
+The domain of indoor localization has garnered considerable attention in recent times, propelled by the pressing need for accurate positioning in environments where traditional GPS signals are elusive. A pivotal contribution in this arena comes from Terán and Ore, who in 2019 embarked on a meticulous exploration of the UJIIndoorLoc dataset, benchmarking various algorithms designed for discerning user indoor positioning \textcolor{blue}{\cite{teran2019benchmark}}. This seminal work by Terán and Ore not only elucidated the nuances of the dataset but also proffered a nuanced understanding of the strengths and potential pitfalls of several algorithms. Their findings serve as a touchstone for subsequent research endeavors, facilitating a deeper appreciation of the intricacies associated with indoor positioning.
 
-Continuing with the exploration of indoor localization through WiFi fingerprinting, numerous studies have delved into the application of deep learning techniques. Alsheikh et al. (2015) discussed the potential of deep learning in wireless localization tasks, highlighting its ability to model complex relationships and enhance the positioning accuracy\textcolor{blue}{\cite{alsheikh2015deep}}. This work underscores the versatility of deep learning methods in addressing the challenges inherent in indoor localization scenarios.
+Complementing this research trajectory, the domain has seen a burgeoning interest in leveraging deep learning techniques for indoor localization, especially within the paradigm of WiFi fingerprinting. In their study, Alsheikh et al. (2015) extolled the virtues of deep learning, emphasizing its profound capability to model intricate relationships, thereby amplifying positioning accuracy\textcolor{blue}{\cite{alsheikh2015deep}}. Such findings underscore the transformative potential of deep learning techniques in surmounting the myriad challenges endemic to indoor localization.
 
-Furthermore, the comprehensive review by Zhang et al. (2013) sheds light on the diverse range of technologies and methodologies employed for indoor localization\textcolor{blue}{\cite{zhang2013comprehensive}}. The authors meticulously analyzed the evolution of indoor positioning systems, emphasizing the limitations of technologies such as infrared and ultrasonic sensors and highlighting the potential of emerging methodologies.
+Zhang et al.'s comprehensive review in 2013 further amplifies our understanding of the multifaceted nature of technologies underpinning indoor localization\textcolor{blue}{\cite{zhang2013comprehensive}}. By delineating the evolution of various technologies, from the erstwhile infrared and ultrasonic sensors to the avant-garde methodologies, Zhang et al. provide invaluable insights into the trajectory of indoor positioning systems.
 
-Collectively, these studies underscore the dynamic nature of indoor localization research, illustrating the continuous advancements and the diverse array of methodologies being explored. The insights derived from these works provide a robust foundation for our study, guiding our exploration of harnessing deep learning for indoor localization using the UJIIndoorLoc dataset.
+Taken in concert, these studies weave a rich tapestry of insights and findings in the realm of indoor localization. The pioneering work of researchers like Marco A. Terán plays an instrumental role in shaping this landscape, providing both direction and impetus for future investigations. As we navigate the complex terrain of the UJIIndoorLoc dataset in our current study, the foundational work of Terán and others serves as both a beacon and a guidepost.
 
 \section{Dataset Description}
 
-The dataset under scrutiny is the \textbf{UJIIndoorLoc}, meticulously curated by Joaquín Torres-Sospedra and collaborators\cite{UJIIndoorLocPap}. This dataset offers a deep dive into the realm of indoor positioning systems, primarily focusing on WLAN fingerprinting or WiFi Fingerprinting. Created based on data captured in 2013 from 3 buildings with 3 and 4 floors of the Universitat Jaume I, it embodies the nuances and intricacies of indoor localization.
+The dataset under scrutiny is the \textbf{UJIIndoorLoc}, meticulously curated by Joaquín Torres-Sospedra and collaborators\textcolor{blue}{\cite{UJIIndoorLocPap}}. This dataset offers a deep dive into the realm of indoor positioning systems, primarily focusing on WLAN fingerprinting or WiFi Fingerprinting. Created based on data captured in 2013 from 3 buildings with 3 and 4 floors of the Universitat Jaume I, it embodies the nuances and intricacies of indoor localization.
 
 A holistic breakdown of its components is as follows:
 
@@ -246,20 +245,244 @@ Subsequently, we reiterate the importance of feature selection based on cumulati
 
 Finally, data normalization is performed using standard scaling, resulting in a standardized dataset for model development. This normalization process ensures that all variables have similar scales, enhancing model performance and interpretability.
 
+\section{Development and Analysis}
+
+Following the acquisition and processing of the initial data, a series of crucial steps were undertaken to optimize the dataset for machine learning models.
+
+\subsection{Normalization and Data Grouping}
+
+Initially, data were grouped based on spaces, identified by the \textit{SPACEID} column. This grouping allowed for better normalization and data segmentation. The \textit{SPACEID} column was temporarily removed, and a k-means clustering algorithm with four clusters was used in its place to identify and label similar groups based on latitude and longitude.
+
+Subsequently, standard data normalization was performed. Numeric variables were standardized to have a mean of 0 and a standard deviation of 1, while categorical variables (such as \textit{FLOOR} and clusters derived from \textit{SPACEID}) were encoded using one-hot encoding. This transformation converted categories into binary columns, facilitating their use in machine learning models.
+
+\subsection{Data Split}
+
+Once processed, the data were divided into predictor variables "X" and target variables "y". Predictor variables excluded latitude and longitude coordinates, as well as categories derived from floor and space, while target variables focused on these coordinates and categories.
+
+\section{Model Analysis}
+
+\subsection{RandomForestRegressor Model}
+
+\textbf{Method}: A RandomForestRegressor model was employed, consisting of 200 trees and utilizing 10 parallel jobs. The tree depth limit was set to 10.
+
+\textbf{Results}:
+\begin{itemize}
+    \item Mean Squared Error (MSE): $0.01778$
+    \item Root Mean Squared Error (RMSE): $0.13336$
+    \item Mean Absolute Error (MAE): $0.05220$
+    \item Coefficient of Determination $R^2$: $0.94$
+\end{itemize}
+
+\textbf{Interpretation}: The RandomForestRegressor model showcases a high degree of accuracy, with an $R^2$ value of $0.94$, indicating its ability to explain 94\% of the variability in the training data. The MSE, RMSE, and MAE metrics are comparatively low, suggesting the model's solid performance on the training set.
+
+\subsection{SVM Model}
+
+\textbf{Method}: An SVM model with a polynomial kernel was employed.
+
+\textbf{Results}:
+\begin{itemize}
+    \item Mean Squared Error (MSE): $0.02059$
+    \item Root Mean Squared Error (RMSE): $0.14351$
+    \item Mean Absolute Error (MAE): $0.08619$
+    \item Coefficient of Determination $R^2$: $0.93$
+\end{itemize}
+
+\textbf{Interpretation}: The SVM model demonstrates slightly lower accuracy compared to the RandomForestRegressor, with an $R^2$ of $0.93$. However, it remains a robust model, capable of explaining 93\% of the variability in the training data. While its MSE and RMSE are marginally higher than the RandomForestRegressor model, they still lie within an acceptable range.
+
+\subsection{Dense Neural Network}
+
+\textbf{Method}: A dense neural network was designed, featuring the following architecture:
+\begin{itemize}
+    \item An input layer with 53 neurons, corresponding to the dataset's 53 features.
+    \item Four hidden layers with 240 neurons each, interleaved with \textit{Dropout} layers set at 20\% to prevent overfitting.
+    \item A hidden layer of 120 neurons followed by \textit{Dropout} layers at 20\%, and an additional layer of 60 neurons.
+    \item An output layer consisting of 11 neurons, representing the 11 prediction features for user localization.
+\end{itemize}
+
+The model was compiled using the Adam optimizer and a loss function based on the mean squared error (MSE). The metric used to assess performance during training was binary accuracy.
+
+\textbf{Results}:
+\begin{itemize}
+    \item Mean Squared Error (MSE): $0.02688$
+    \item Root Mean Squared Error (RMSE): $0.16394$
+    \item Mean Absolute Error (MAE): $0.05477$
+    \item Coefficient of Determination $R^2$: $0.95$
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{REDNEURONAL1.png}
+    \caption{Training evolution of the dense neural network}
+    \label{fig:nn_training_evolution}
+\end{figure}
+
+\textbf{Interpretation}: The dense neural network displays a high degree of accuracy with an $R^2$ of $0.95$, denoting its ability to explain 95\% of the variability in the training data. The MSE, RMSE, and MAE metrics suggest a solid performance of the model on the training data. Figure \textcolor{blue}{\ref{fig:nn_training_evolution}} showcases a stable evolution of the training metrics, reflecting effective learning and potential early convergence of the model.
+
+\subsection{Comparison and Conclusion}
+
+Upon evaluating and comparing the three models, the following observations were made:
+\begin{itemize}
+    \item The \textbf{RandomForestRegressor} model exhibits an $R^2$ of $0.94$, indicating its capability to account for 94\% of the variability in the training data.
+    \item The \textbf{SVM} model reports an $R^2$ of $0.93$, suggesting it's marginally less accurate when juxtaposed with the RandomForestRegressor but still stands as a high-performing model.
+    \item The \textbf{Dense Neural Network} emerges as the top performer with an $R^2$ of $0.95$, underscoring its adeptness at capturing complex relationships within the dataset.
+\end{itemize}
+
+\textbf{Conclusion}: All three models display a high degree of accuracy in predicting localization features. The Dense Neural Network appears to be the most efficient, closely followed by the RandomForestRegressor. Although the SVM is slightly less accurate compared to the other two models, it still offers robust performance.
+
+\section{Execution and Model Evaluation on Test Data}
+
+\subsection{Storage and Loading of Models}
+
+Four models, which had been previously developed, were stored and subsequently loaded for evaluation on test data. These models are K-means, Random Forest Regressor, SVM, and a Dense Neural Network.
+
+\subsection{Test Data Pre-processing}
+
+An independent copy of the test data was created to ensure that the original data remained unaltered throughout the process.
+
+For spatial characterization, the previously trained K-means model was employed to predict the \texttt{SPACEID\_cluster} variable on the test data. This prediction categorizes areas within the dataset into specific clusters, simplifying their representation.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{procesamientoypruebadatos.png}
+    \caption{Cluster distribution generated by k-means on test data.}
+    \label{fig:clusters_test_data}
+\end{figure}
+
+\subsection{Standardization and One-hot Encoding}
+
+Aiming to prepare data for the models, standardization and encoding techniques were employed. The data were standardized to maintain a uniform range and scale, which eases the training and evaluation processes for the models. Categorical variables, notably \texttt{FLOOR} and \texttt{SPACEID\_cluster}, were encoded using the one-hot method, thereby converting these categories into more manageable binary formats for the models.
+
+\subsection{Data Split}
+
+Relevant features and labels were identified and segregated for evaluation. The features, denoted as \texttt{X}, encompass information about Wi-Fi signal strength and other pertinent factors. The labels, denoted as \texttt{y}, represent the physical location, such as latitude, longitude, and the specific floor of the building. These prepared sets are directly used in the models to evaluate their accuracy and performance.
+
+\section{Evaluation of Models on Test Data}
+
+With the prepared test data, we proceeded to evaluate the performance of three models: RandomForest, SVM (Support Vector Machine), and Dense Neural Network. The performance of each model is gauged using four metrics: Mean Squared Error (MSE), Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and the coefficient of determination \( R^2 \).
+
+\subsection{RandomForest}
+
+The RandomForest model reported the following metrics:
+
+\begin{itemize}
+    \item Mean Squared Error (MSE): 0.03287
+    \item Root Mean Squared Error (RMSE): 0.18130
+    \item Mean Absolute Error (MAE): 0.07531
+    \item \( R^2 \): 0.89
+\end{itemize}
+
+\textbf{Result Analysis:}
+The RandomForest model exhibited solid predictive capability, with a determination coefficient \( R^2 \) of 0.89. This indicates the model's ability to explain 89\% of the data variability. The RMSE, which sheds light on the average prediction error, is reasonably low.
+
+\subsection{SVM (Support Vector Machine)}
+
+The SVM model's performance metrics are:
+
+\begin{itemize}
+    \item Mean Squared Error (MSE): 0.03601
+    \item Root Mean Squared Error (RMSE): 0.18975
+    \item Mean Absolute Error (MAE): 0.11176
+    \item \( R^2 \): 0.87
+\end{itemize}
+
+\textbf{Result Analysis:}
+The SVM model's performance is slightly inferior compared to the RandomForest model. While its \( R^2 \) remains high, its MAE is larger, suggesting that the SVM model predictions, on average, are farther from actual values than those of the RandomForest model.
+
+\subsection{Dense Neural Network}
+
+The performance metrics for the Dense Neural Network are:
+
+\begin{itemize}
+    \item Mean Squared Error (MSE): 0.04196
+    \item Root Mean Squared Error (RMSE): 0.20484
+    \item Mean Absolute Error (MAE): 0.07024
+    \item \( R^2 \): 0.89
+\end{itemize}
+
+\textbf{Result Analysis:}
+The Dense Neural Network's performance is comparable to the RandomForest model in terms of \( R^2 \). However, its RMSE is higher, signifying that, on average, the model's predictions have a larger error. Despite this, the MAE is competitive, implying that the model's predictions are typically close to the actual values, but there might exist some significant outliers affecting the RMSE.
+
+\section{Employment of Autoencoder}
+
+To enhance feature selection and reduce dimensionality, we decided to employ an autoencoder. We started by making a copy of the data with which the prior models were trained, considering all WAP columns. The intent is to identify and extract the 53 most pertinent features using the autoencoder.
+
+Moreover, it was observed that 59 records showcased inconsistencies in all WAP measurements. Such records might hinder optimal model training, hence they were removed.
+
+\subsection{Autoencoder Creation}
+
+The autoencoder is constructed as a neural network aimed at reducing data dimensionality, in this case, from all WAPs to 56 features. Below is the neural network architecture utilized:
+
+\begin{lstlisting}
+Model:
+- Input layer with 520 nodes
+- Dense layer with 250 nodes and ReLU activation function
+- Dense layer with 125 nodes and ReLU activation function
+- Dense layer of 56 nodes (encoded features) with ReLU activation function
+- Decoding layers with a similar but reverse structure
+\end{lstlisting}
+
+
+The autoencoder is compiled using the Adam optimizer and trained with mean squared error (MSE). The latent features are subsequently predicted and extracted for future use.
+
+Upon employing k-means on latitude and longitude coordinates, the cluster distribution is visualized:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{imageau1.png}
+\caption{Cluster distribution produced by k-means.}
+\end{figure}
+
+\subsection{Construction of Convolutional Model}
+
+With the acquired features, a convolutional model is built. The model's architecture is as follows:
+
+\begin{lstlisting}
+Model:
+- 1D Convolutional layer: 32 filters, 4 kernel size
+- MaxPooling layer
+- 1D Convolutional layer: 64 filters, 4 kernel size
+- MaxPooling layer
+- 1D Convolutional layer: 128 filters, 4 kernel size
+- MaxPooling layer
+- Flatten layer
+- Successive dense layers of 200, 200, and 100 nodes
+- Output layer with 11 nodes
+\end{lstlisting}
+
+The model is trained over 100 epochs, and the loss and accuracy evolution is visualized:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{imageau2.png}
+\caption{Evolution of convolutional model's loss and accuracy.}
+\end{figure}
+
+\subsection{Convolutional Model Evaluation}
+
+The model's metrics are as follows:
+
+\begin{itemize}
+    \item Mean Squared Error (MSE): 0.14123
+    \item Root Mean Squared Error (RMSE): 0.37580
+    \item Mean Absolute Error (MAE): 0.21563
+    \item \( R^2 \): 0.55
+\end{itemize}
+
+\textbf{Result Analysis:}
+The convolutional model, despite its intricate architecture, reports an \( R^2 \) of 0.55. This suggests room for improvement in its predictive capability. Additional adjustments in architecture or the training process might be needed to enhance its performance.
 
 \section*{Conclusion}
 
-In this study, we embarked on a comprehensive exploration of the UJIIndoorLoc dataset, aiming to uncover valuable insights and patterns related to WLAN fingerprinting and indoor positioning. Through a meticulous analysis, we shed light on various aspects of the dataset, from data distributions and spatial characteristics to attribute relevance and correlations.
+In this research, we delved deep into an exhaustive analysis of the UJIIndoorLoc dataset, with the objective of uncovering valuable insights related to WLAN fingerprinting and indoor localization. Our meticulous examination shed light on multiple facets of the dataset, ranging from spatial distributions and attributes to the relevance and correlations of features.
 
-Our initial visual representations, as showcased in Figure 1, Figure 2, and Figure 3, allowed us to discern significant observations. We identified that only one building featured measurements on the 4th floor, suggesting the potential absence of a fourth floor in the other buildings. Additionally, our analysis revealed that data points were most concentrated between spaces 100 to 150, with spaces 200 to 250 ranking second in terms of prevalence. This non-linear categorization of spaces presents a noteworthy challenge in our modeling process.
+Our initial visual interpretations unveiled critical insights. We observed that only one building showcased measurements on the fourth floor, insinuating the possible nonexistence of such a floor in other buildings. Our deductions also zeroed in on the notable skewness and high kurtosis of WAP measurements, with more than 90\% of data points registering a reading of -104 dBm. Additionally, we discerned that specific spaces (like rooms) housed a dominant concentration of measurements, pointing towards potential imbalances in data representation across locations.
 
-Further analysis delved into attribute relevance and correlation. By analyzing correlation matrices and selecting attributes with a sum of correlations above the dataset average, we aimed to streamline our dataset. This process not only reduced memory usage but also improved the dataset's focus on the most informative features for building our indoor positioning model.
+Several machine learning models were trained and rigorously evaluated on both training and test datasets. Notably, the Dense Neural Network stood out, reporting the highest \( R^2 \) value of 0.95, marking it as the best performer among all. SVM and RandomForest models also showcased commendable results, with the latter slightly outshining the former.
 
-Lastly, we discussed the normalization of our data using standard scaling, preparing it for subsequent modeling and analysis.
+Our subsequent endeavor into leveraging an autoencoder to distill essential features and reduce data dimensionality was insightful. The convolutional model constructed post feature extraction, however, exhibited a mediocre \( R^2 \) value, implying potential optimization opportunities.
 
-In closing, this study lays the foundation for future work in indoor positioning systems and WLAN fingerprinting. The insights gained from our exploratory analysis pave the way for the development of accurate and robust indoor positioning models. Understanding the dataset's intricacies, its spatial characteristics, and attribute relevance is pivotal in crafting models that can navigate indoor environments effectively.
+In sum, our deep-dive into the UJIIndoorLoc dataset and consequent model evaluations offer a comprehensive overview of indoor localization methodologies based on WLAN fingerprinting. This research paves the way for future explorations and augmentations in the realm of indoor positioning systems.
 
-Moving forward, we will leverage these insights to build and evaluate indoor positioning models, striving to provide accurate location estimates in complex indoor settings. This project contributes to the broader field of indoor positioning and underscores the importance of comprehensive data analysis in creating effective and reliable positioning systems.
 
 \\
 
